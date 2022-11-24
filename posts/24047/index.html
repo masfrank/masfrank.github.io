@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Windows10安装WSL2 | LH's Blog</title><meta name="keywords" content="ubuntu,WSL"><meta name="author" content="LH"><meta name="copyright" content="LH"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="null"><meta name="description" content="Windows10 安装 WSL2 的一些记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows10安装WSL2">
+<meta property="og:url" content="https://imcoo.top/posts/24047/index.html">
+<meta property="og:site_name" content="LH&#39;s Blog">
+<meta property="og:description" content="Windows10 安装 WSL2 的一些记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg">
+<meta property="article:published_time" content="2022-10-05T06:55:00.000Z">
+<meta property="article:modified_time" content="2022-11-24T07:58:54.874Z">
+<meta property="article:author" content="LH">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="WSL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://imcoo.top/posts/24047/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Windows10安装WSL2',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-24 15:58:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://copic.imcoo.top/bg/202211240011791.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LH's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Windows10安装WSL2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-05T06:55:00.000Z" title="发表于 2022-10-05 14:55:00">2022-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-24T07:58:54.874Z" title="更新于 2022-11-24 15:58:54">2022-11-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/WSL/">WSL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Windows10安装WSL2"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Windows10 安装 WSL2 的一些记录</p>
+<span id="more"></span>
+
+<h3 id="1-查看本机-windows-版本"><a href="#1-查看本机-windows-版本" class="headerlink" title="1.查看本机 windows 版本"></a>1.查看本机 windows 版本</h3><p>键盘上按下 win+R,输入 winver，查看系统版本。必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11。满足版本要求后，继续下一步。</p>
+<h3 id="2-BIOS-及控制面板开启虚拟化"><a href="#2-BIOS-及控制面板开启虚拟化" class="headerlink" title="2.BIOS 及控制面板开启虚拟化"></a>2.BIOS 及控制面板开启虚拟化</h3><p>(1)BIOS 开启虚拟化<br>我用的是联想小新笔记本，开机时狂按 F2（Fn+F2）即可进入 BIOS 界面，找到在上方的【Cpu Configuration】选项，将最下方的【Intel Virtual Technology】，在 VirtuallizationTechnology 上按下回车键把 Disabled 改为 Enabled。AMD 则是将【SVM Support】设置为设置为【Enable】的状态；最后点击【F10】保存退出即可。<br>开机后打开【任务管理器——性能】检查 VT 功能是否成功开启<br><img src="http://copic.imcoo.top/bg/FuvDIL0pF7UrfoV618MaxZVs8df6.png"><br>(2)在 Windows 系统中开启虚拟化<br><img src="http://copic.imcoo.top/bg/Fhe3cynTmXGRN6_F1nPAVruTW62_.png"></p>
+<h3 id="3-Powershell-中启用-Windows-子系统和虚拟机平台功能"><a href="#3-Powershell-中启用-Windows-子系统和虚拟机平台功能" class="headerlink" title="3.Powershell 中启用 Windows 子系统和虚拟机平台功能"></a>3.Powershell 中启用 Windows 子系统和虚拟机平台功能</h3><p>在 powerShell 中以管理员身份运行下面命令以确保开启<strong>适用于 Linux 的 Windows 子系统</strong>和<strong>虚拟机平台</strong>配置项。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wsl --install</span><br><span class="line">dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span><br><span class="line">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span><br><span class="line"></span><br><span class="line">wsl --set-default-version 2</span><br></pre></td></tr></table></figure>
+
+<p>开启后重启<br>检查版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl -l -v</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-下载安装包并安装"><a href="#4-下载安装包并安装" class="headerlink" title="4.下载安装包并安装"></a>4.下载安装包并安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile Ubuntu18.appx -UseBasicParsing</span><br><span class="line">Rename-Item .\Ubuntu_1804.2019.522.0_x64.appx Ubuntu18.appx</span><br><span class="line">Rename-Item .\Ubuntu18.appx Ubuntu18.zip</span><br><span class="line">Expand-Archive .\Ubuntu18.zip -Verbose</span><br><span class="line">cd Ubuntu18/</span><br><span class="line">.\ubuntu1804.exe</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Rename-Item .\Ubuntu_2004.2020.424.0_x64.appx Ubuntu20.appx</span><br><span class="line">Rename-Item .\Ubuntu20.appx Ubuntu20.zip</span><br><span class="line">Expand-Archive .\Ubuntu20.zip -Verbose</span><br><span class="line">cd Ubuntu20/</span><br><span class="line">.\ubuntu2004.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-WSL-apt-换源"><a href="#5-WSL-apt-换源" class="headerlink" title="5.WSL apt 换源"></a>5.WSL apt 换源</h3><p>换源地址集合（<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/161680238">开源软件国内镜像源对比</a>）<br>WSL2 换源系列问题（<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47359411/article/details/123861792">https://blog.csdn.net/weixin_47359411&#x2F;article&#x2F;details&#x2F;123861792</a>）<br>(1).备份源列表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/apt/</span><br><span class="line"></span><br><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></table></figure>
+
+<p>(2).命令行打开 sources.list 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<p>(3).将源文件内容全部注释,并添加以下任意源（优先清华源） #阿里云 #20221005 经测试 ubuntu18.04 速度只有 100 多 kb</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">deb https://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb https://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb https://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb https://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>#清华源 #20221005 经测试 ubuntu18.04 报错但下方找到解决方案<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Chaowanq/article/details/121559709">解决</a>：将&#x2F;etc&#x2F;resolv.conf 下的源本机为 WSL 设置的虚拟 ip 地址注释掉</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">预发布软件源，不建议启用</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
+
+<p>20.04(http)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>#中科大源（<a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/repogen/">配置链接</a>）#20221005 经测试 ubuntu18.04 OK</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Not recommended</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span></span><br></pre></td></tr></table></figure>
+
+<p>(4).更新源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat sources.list</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>(5).更新软件，然后你就可以感受到更换国内源之后的飞速提升了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y dist-upgrade</span><br><span class="line">sudo apt-get -y upgrade</span><br></pre></td></tr></table></figure>
+
+<p>(6).更换默认 vim<br><strong>卸载</strong><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=vim&spm=1001.2101.3001.7020"><strong>vim</strong></a><strong>-tiny</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove vim-common</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装 vim-full</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-开启宿主-Win10-文件系统相互访问"><a href="#6-开启宿主-Win10-文件系统相互访问" class="headerlink" title="6.开启宿主 Win10 文件系统相互访问"></a>6.开启宿主 Win10 文件系统相互访问</h3><p>(1).Win 系统访问 WSL2 文件<br>在资源管理器输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\wsl$</span><br></pre></td></tr></table></figure>
+
+<p>(2).Linux 子系统访问 Win10 文件<br>在 WSL 内 进入 mnt 目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-解决-systemctl-命令无法使用问题"><a href="#7-解决-systemctl-命令无法使用问题" class="headerlink" title="7.解决 systemctl 命令无法使用问题"></a>7.解决 systemctl 命令无法使用问题</h3><p>1.安装<code>daemonize</code>和<code>fontconfig</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install -y fontconfig daemonize</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.编辑&#x2F;etc&#x2F;profile 脚本，加入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SYSTEMD_PID=$(ps -ef | grep &#x27;/lib/systemd/systemd --system-unit=basic.target$&#x27; | grep -v unshare | awk &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">if [ -z &quot;$SYSTEMD_PID&quot; ]; then</span><br><span class="line">   sudo /usr/bin/daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target</span><br><span class="line">   SYSTEMD_PID=$(ps -ef | grep &#x27;/lib/systemd/systemd --system-unit=basic.target$&#x27; | grep -v unshare | awk &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ -n &quot;$SYSTEMD_PID&quot; ] &amp;&amp; [ &quot;$SYSTEMD_PID&quot; != &quot;1&quot; ]; then</span><br><span class="line">    exec sudo /usr/bin/nsenter -t $SYSTEMD_PID -a su - $LOGNAME</span><br><span class="line">fi</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.修改&#x2F;etc&#x2F;sudoers 文件，加入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">%</span><span class="language-bash">sudo ALL=(ALL) NOPASSWD: /usr/sbin/daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target</span></span><br><span class="line"><span class="meta prompt_">%</span><span class="language-bash">sudo ALL=(ALL) NOPASSWD: /usr/bin/nsenter -t [0-9]* -a su - [a-zA-Z0-9]*</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4.执行 source &#x2F;etc&#x2F;profile 或者是重新打开 terminal，执行 systemctl 验证是否能够正常操作。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/wsl.conf</span><br><span class="line"></span><br><span class="line">[network]</span><br><span class="line">generateHosts = false</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="8-关闭-WSL2-进程"><a href="#8-关闭-WSL2-进程" class="headerlink" title="8.关闭 WSL2 进程"></a>8.关闭 WSL2 进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">关闭虚拟机</span></span><br><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-对-WSL-内存进行限制"><a href="#9-对-WSL-内存进行限制" class="headerlink" title="9.对 WSL 内存进行限制"></a>9.对 WSL 内存进行限制</h3><p>输入 %UserProfile% 并打开 CMD<br>执行<code>code .wslconfig</code>并填入下列内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[wsl2]</span><br><span class="line">processors=8</span><br><span class="line">memory=8GB</span><br><span class="line">swap=8GB</span><br><span class="line">localhostForwarding=true</span><br></pre></td></tr></table></figure>
+
+<p>安装配置参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/RenLJ1895/article/details/122741040">https://blog.csdn.net/RenLJ1895/article/details/122741040</a><br>安装到其他盘参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lidabo/p/16614014.html">https://www.cnblogs.com/lidabo/p/16614014.html</a><br>WSL2 内存限制参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/345645621">https://zhuanlan.zhihu.com/p/345645621</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://imcoo.top">LH</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://imcoo.top/posts/24047/">https://imcoo.top/posts/24047/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://imcoo.top" target="_blank">LH's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ubuntu/">ubuntu</a><a class="post-meta__tags" href="/tags/WSL/">WSL</a></div><div class="post_share"><div class="social-share" data-image="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/51678/"><img class="prev-cover" src="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">语雀图片防盗链的解决方案</div></div></a></div><div class="next-post pull-right"><a href="/posts/2825081488/"><img class="next-cover" src="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">我的第一篇Blog</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Waline</span><span class="switch-btn"></span><span class="second-comment">Artalk</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://copic.imcoo.top/bg/202211240011791.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LH</div><div class="author-info__description">Find and Run</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/masfrank"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/masfrank" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:stinowork@outlook.it" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">FIND AND RUN</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E6%9C%AC%E6%9C%BA-windows-%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">1.查看本机 windows 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-BIOS-%E5%8F%8A%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E5%BC%80%E5%90%AF%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">2.BIOS 及控制面板开启虚拟化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Powershell-%E4%B8%AD%E5%90%AF%E7%94%A8-Windows-%E5%AD%90%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B3%E5%8F%B0%E5%8A%9F%E8%83%BD"><span class="toc-number">3.</span> <span class="toc-text">3.Powershell 中启用 Windows 子系统和虚拟机平台功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85%E5%B9%B6%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">4.下载安装包并安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-WSL-apt-%E6%8D%A2%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text">5.WSL apt 换源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%BC%80%E5%90%AF%E5%AE%BF%E4%B8%BB-Win10-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9B%B8%E4%BA%92%E8%AE%BF%E9%97%AE"><span class="toc-number">6.</span> <span class="toc-text">6.开启宿主 Win10 文件系统相互访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%A7%A3%E5%86%B3-systemctl-%E5%91%BD%E4%BB%A4%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">7.解决 systemctl 命令无法使用问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%85%B3%E9%97%AD-WSL2-%E8%BF%9B%E7%A8%8B"><span class="toc-number">8.</span> <span class="toc-text">8.关闭 WSL2 进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%AF%B9-WSL-%E5%86%85%E5%AD%98%E8%BF%9B%E8%A1%8C%E9%99%90%E5%88%B6"><span class="toc-number">9.</span> <span class="toc-text">9.对 WSL 内存进行限制</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/46097/" title="Win10下MySQL5.7和MySQL8.0.31共存"><img src="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Win10下MySQL5.7和MySQL8.0.31共存"/></a><div class="content"><a class="title" href="/posts/46097/" title="Win10下MySQL5.7和MySQL8.0.31共存">Win10下MySQL5.7和MySQL8.0.31共存</a><time datetime="2022-11-22T06:08:20.000Z" title="发表于 2022-11-22 14:08:20">2022-11-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/16004/" title="【问题解决】从100 0000个数中找出所有的素数"><img src="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【问题解决】从100 0000个数中找出所有的素数"/></a><div class="content"><a class="title" href="/posts/16004/" title="【问题解决】从100 0000个数中找出所有的素数">【问题解决】从100 0000个数中找出所有的素数</a><time datetime="2022-11-21T14:50:00.000Z" title="发表于 2022-11-21 22:50:00">2022-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/11142/" title="Npm运行本地html及部署至宝塔"><img src="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Npm运行本地html及部署至宝塔"/></a><div class="content"><a class="title" href="/posts/11142/" title="Npm运行本地html及部署至宝塔">Npm运行本地html及部署至宝塔</a><time datetime="2022-11-01T14:23:00.000Z" title="发表于 2022-11-01 22:23:00">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/51678/" title="语雀图片防盗链的解决方案"><img src="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="语雀图片防盗链的解决方案"/></a><div class="content"><a class="title" href="/posts/51678/" title="语雀图片防盗链的解决方案">语雀图片防盗链的解决方案</a><time datetime="2022-10-05T14:20:00.000Z" title="发表于 2022-10-05 22:20:00">2022-10-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24047/" title="Windows10安装WSL2"><img src="https://fastly.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows10安装WSL2"/></a><div class="content"><a class="title" href="/posts/24047/" title="Windows10安装WSL2">Windows10安装WSL2</a><time datetime="2022-10-05T06:55:00.000Z" title="发表于 2022-10-05 14:55:00">2022-10-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By LH</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><span>粤ICP备2022094089号-1</span></a><div><a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">本网站由<img src="https://copic.imcoo.top/bg/202211240014736.png" width="43px" />提供CDN加速/云存储服务</a></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://cm.imcoo.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script><script>function addArtalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/artalk/dist/Artalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadArtalk () {
+  function initArtalk () {
+    window.artalkItem = new Artalk(Object.assign({
+      el: '#artalk-wrap',
+      server: '',
+      site: '',
+      pageKey: location.pathname,
+      darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
+      countEl: '.artalk-count'
+    },null))
+  }
+
+  if (typeof window.artalkItem === 'object') setTimeout(()=>{initArtalk()},200)
+  else {
+    addArtalkSource()
+    typeof Artalk !== 'function' ? getScript('https://cdn.jsdelivr.net/npm/artalk/dist/Artalk.min.js').then(initArtalk)
+                                : setTimeout(()=>{initArtalk()},200)
+  }
+}
+
+document.getElementById('darkmode').addEventListener('click',()=> {
+  if (typeof window.artalkItem !== 'object') return
+  let isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+  window.artalkItem.setDarkMode(!isDark)
+})
+
+
+if ('Waline' === 'Artalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+  else loadArtalk()
+} else {
+  function loadOtherComment () {
+    loadArtalk()
+  }
+}</script></div><script defer src="/live2d-widget/autoload.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
